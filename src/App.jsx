@@ -1,62 +1,35 @@
-import { useReducer } from 'react';
-import Select from './category';
-import {expenseCal} from './espenseHandler.js'
+import { Routes, Route , NavLink } from "react-router"
+import { Home } from './pages/Home/index.jsx';
+import { About } from './pages/About/index.jsx';
+import { Profile } from './pages/Profile/index.jsx';
 // import './App.css'
-
-let initialState = {
-    data: '',
-    list: [],
-    sum: 0 ,
-    category: ''
-}
 
 
 function App() {
 
-const [state, expenseDispatch] =useReducer(expenseCal, initialState);
 
-const handlechange =(e) =>{
-    expenseDispatch({
-        type: "INPUT",
-        payload: e.target.value
-    })
 
-}
-const addExpense = () =>{
-    expenseDispatch({
-        type: "ADD"
-    })
-}
-const subExpense =(id, value) =>{
-    expenseDispatch({
-        type: "SUB",
-        payload: {id, value}
-    })
-}
-
+    const getStyle = ({isActive}) =>{
+        return {
+            color : isActive ? 'red' : ''
+        }
+    }
 return (
     <>
-        <div className='conatiner'>
-            <div className="header">
-                <h1>Expense Tracker</h1>
-                 <Select category= {state.category} expenseDispatch={expenseDispatch}/>
-                <input value={state.data} onChange ={handlechange}  type="number"  placeholder='enter amount'/> {/* /*with data it become a controled input */ }
-               <button onClick={addExpense}>Add</button> 
-            </div>
-            <div>
-                {state.list?.length > 0 && state.list.map((iteam) =>(
-                    <div key={iteam.id}>
-                        <label>
-                            <span> Category : {iteam.category}, Amount:  {iteam.data}</span>
-                            <button onClick={() => {subExpense(iteam.id , iteam.data) }}>delete</button>
-                        </label>
-                    </div>
-                ))}
-                <h1>total expense : {state.sum}</h1>
-            </div>
-        </div>
+        <div className="rout">
+                    <NavLink style={getStyle} to='/'>HOME</NavLink> ||  
+                    <NavLink style={getStyle} to='/about'> ABOUT</NavLink> ||  
+                    <NavLink style={getStyle} to='/profile'> PROFILE</NavLink>
+
+                    <Routes>
+                        <Route path='/' element= {<Home /> } />
+                        <Route path='/about' element= {<About /> } />
+                        <Route path='/profile' element= {<Profile /> } />
+                    </Routes>
+               </div>
     </>
 )
 }
+
 
 export default App
