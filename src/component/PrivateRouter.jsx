@@ -6,5 +6,4 @@ export const PrivateRouter = ({children}) =>{
 
     return islogin ? children : <Navigate to="/login" />
 
-
 } 
