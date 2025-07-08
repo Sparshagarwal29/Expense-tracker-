@@ -1,23 +1,13 @@
-import { useReducer } from 'react';
 import Select from '../../category.jsx';
-import {expenseCal} from '../../espenseHandler.js'
+import { useExpense , ExpenseProvider } from '../../Context/expense-Context.jsx';
 
-let initialState = {
-    data: '',
-    list: [],
-    sum: 0 ,
-    category: ''
-}
 export const Home=() => {
-
-    const [state, expenseDispatch] =useReducer(expenseCal, initialState);
-    
+    const {data, list , sum , category, expenseDispatch} = useExpense(); 
     const handlechange =(e) =>{
         expenseDispatch({
             type: "INPUT",
             payload: e.target.value
-        })
-        
+        })        
     }
     const addExpense = () =>{
         expenseDispatch({
@@ -33,26 +23,29 @@ export const Home=() => {
         
         return (
             <>
-        <div className='conatiner'>
-            <div className="header">
-                <h1>Expense Tracker</h1>
-                 <Select category= {state.category} expenseDispatch={expenseDispatch}/>
-                <input value={state.data} onChange ={handlechange}  type="number"  placeholder='enter amount'/> {/* /*with data it become a controled input */ }
-               <button onClick={addExpense}>Add</button> 
-            </div>
-            <div>
-                {state.list?.length > 0 && state.list.map((iteam) =>(
-                    <div key={iteam.id}>
-                        <label>
-                            <span> Category : {iteam.category}, Amount:  {iteam.data}</span>
-                            <button onClick={() => {subExpense(iteam.id , iteam.data) }}>delete</button>
-                        </label>
+                <ExpenseProvider>
+                    <div className='conatiner'>
+                        <div className="header">
+                            <h1>Expense Tracker</h1>
+                            <Select category= {category} expenseDispatch={expenseDispatch}/>
+                            <input value={data} onChange ={handlechange}  type="number"  placeholder='enter amount'/> {/* /*with data it become a controled input */ }
+                        <button onClick={addExpense}>Add</button> 
+                        </div>
+                        <div>
+                            {list?.length > 0 && list.map((iteam) =>(
+                                <div key={iteam.id}>
+                                    <label>
+                                        <span> Category : {iteam.category}, Amount:  {iteam.data}</span>
+                                        <button onClick={() => {subExpense(iteam.id , iteam.data) }}>delete</button>
+                                    </label>
+                                </div>
+                            ))}
+                            <h1>total expense : {sum}</h1>
+                        </div>
                     </div>
-                ))}
-                <h1>total expense : {state.sum}</h1>
-            </div>
-        </div>
-    </>
+
+                </ExpenseProvider>            
+             </>
 )
 }
 
