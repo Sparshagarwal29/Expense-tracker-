@@ -3,6 +3,7 @@ import { Home } from './pages/Home/index.jsx';
 import { About } from './pages/About/index.jsx';
 import { Profile } from './pages/Profile/index.jsx';
 import { Login } from "./pages/Login/login.jsx";
+import { PrivateRouter } from "./component/PrivateRouter.jsx";
 // import './App.css'
 
 
@@ -23,7 +24,12 @@ return (
                     <Routes>
                         <Route path='/' element= {<Home /> } />
                         <Route path='/about' element= {<About /> } />
-                        <Route path='/profile' element= {<Profile /> } />
+                        <Route path='/profile' element= {
+                            <PrivateRouter>
+                                <Profile />
+                            </PrivateRouter>
+
+                             } />
                         <Route path='/login' element= {<Login /> } />
                     </Routes>
                </div>

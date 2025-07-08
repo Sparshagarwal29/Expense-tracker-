@@ -12,11 +12,11 @@ export const expenseCal = (state, action) =>{
             return{
                 ...state,
                 category: action.payload 
-            
-            };
+                
+            };            
         case "ADD":{
-            if(!state.data){
-                alert("bosdk number daal gandu");
+            if(!state.data && !state.category){
+                alert("please enter a valid category or number ");
                 return state;
             }
             const numvalue = parseFloat(state.data)
@@ -40,6 +40,12 @@ export const expenseCal = (state, action) =>{
                 list: state.list.filter(iteam => iteam.id!==id),
                 sum: state.sum-value,
             };
+        }
+        case "login":{
+            return{
+                ...state,
+                islogin: action.payload
+            }
         }
         default:
           return  state;

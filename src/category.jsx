@@ -1,4 +1,4 @@
-import { useExpense } from "./Context/expense-Context";
+
 
  const cat = [
     {id: 1, value: "Food"},
