@@ -28,8 +28,7 @@ return (
                             <PrivateRouter>
                                 <Profile />
                             </PrivateRouter>
-
-                             } />
+                        } />
                         <Route path='/login' element= {<Login /> } />
                     </Routes>
                </div>

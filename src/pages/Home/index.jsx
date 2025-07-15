@@ -35,7 +35,8 @@ export const Home=() => {
                             {list?.length > 0 && list.map((iteam) =>(
                                 <div key={iteam.id}>
                                     <label>
-                                        <span> Category : {iteam.category}, Amount:  {iteam.data}</span>
+                                        <span > Category : {iteam.category}, Amount:  {iteam.data}</span> 
+                                        {/* if iteam.category alredy eixits the amount should add to the wxisting iteam */}
                                         <button onClick={() => {subExpense(iteam.id , iteam.data) }}>delete</button>
                                     </label>
                                 </div>

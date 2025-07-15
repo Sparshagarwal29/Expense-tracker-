@@ -1,11 +1,11 @@
-
+import {v4 as uuid}  from "uuid";
 
  const cat = [
-    {id: 1, value: "Food"},
-    {id: 2, value: "Home"},
-    {id: 3, value: "Enterainment"},
-    {id: 4, value: "Personal"},
-    {id: 5, value: "Miscellaneous"},
+    {id: uuid(), value: "Food"},
+    {id: uuid(), value: "Home"},
+    {id: uuid(), value: "Enterainment"},
+    {id: uuid(), value: "Personal"},
+    {id: uuid(), value: "Miscellaneous"},
  ]
 function Select ({category, expenseDispatch}) {
 

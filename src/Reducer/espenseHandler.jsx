@@ -24,14 +24,34 @@ export const expenseCal = (state, action) =>{
                 alert("put valid input");
                 return state;
             }
-            return{
-                ...state,
-                // list: [...state.list, {id: uuid(), data: numvalue}],
-                list: [...state.list, { id: uuid(), data: numvalue , category: state.category}],
-                sum: state.sum + numvalue ,
-                data: '',
-                category: ''
-            };
+            const existingCategoryIndex = state.list.findIndex(iteam => iteam.category.toLowerCase() === state.category.toLowerCase());
+            console.log(existingCategoryIndex);
+            
+            if(existingCategoryIndex !== -1){
+                const updatedList = [...state.list];
+                updatedList[existingCategoryIndex] ={
+                    ...updatedList[existingCategoryIndex],                
+                    data: updatedList[existingCategoryIndex].data+ numvalue
+
+                }
+
+                return{
+                    ...state,
+                    list: updatedList,
+                    sum: state.sum + numvalue ,
+                    data: '',
+                    category: ''
+                };
+            
+             } else {
+                return{
+                    ...state,
+                    list: [...state.list, { id: uuid(), data: numvalue , category: state.category}],
+                    sum: state.sum + numvalue ,
+                    data: '',
+                    category: ''
+                };
+            }
         }
         case "SUB":{
             let {id,value} = action.payload
