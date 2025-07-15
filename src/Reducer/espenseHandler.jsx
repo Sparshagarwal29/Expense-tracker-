@@ -15,26 +15,27 @@ export const expenseCal = (state, action) =>{
                 
             };            
         case "ADD":{
-            if(!state.data && !state.category){
-                alert("please enter a valid category or number ");
+            if(!state.data  || state.data <= 0){
+                alert("please enter a valid  number ");
                 return state;
             }
+            if(!state.category){
+                alert("please enter a valid category ");
+                return state;
+            }
+            
             const numvalue = parseFloat(state.data)
             if(isNaN(numvalue)){
                 alert("put valid input");
                 return state;
             }
-            const existingCategoryIndex = state.list.findIndex(iteam => iteam.category.toLowerCase() === state.category.toLowerCase());
-            console.log(existingCategoryIndex);
-            
+            const existingCategoryIndex = state.list.findIndex(iteam => iteam.category.toLowerCase() === state.category.toLowerCase());           
             if(existingCategoryIndex !== -1){
                 const updatedList = [...state.list];
                 updatedList[existingCategoryIndex] ={
                     ...updatedList[existingCategoryIndex],                
-                    data: updatedList[existingCategoryIndex].data+ numvalue
-
+                    data: updatedList[existingCategoryIndex].data + numvalue
                 }
-
                 return{
                     ...state,
                     list: updatedList,
