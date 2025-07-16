@@ -1,101 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
+import { AddExpenseForm } from './AddExpenseForm';
 import { Plus, History, TrendingUp, Trash2 } from 'lucide-react';
-
-
-const AddExpenseForm = ({ formData, handleInputChange, handleSubmit, handleCancel, categories }) => (
-  <div className="bg-white rounded-lg shadow-md p-6">
-    <h2 className="text-2xl font-bold mb-6 text-gray-800">Add New Expense</h2>
-    <div className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Amount</label>
-        <input
-          type="number"
-          name="amount"
-          value={formData.amount}
-          onChange={handleInputChange}
-          required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="0.00"
-          step="0.01"
-          min="0"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-        <select
-          name="category"
-          value={formData.category}
-          onChange={handleInputChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {categories.map(category => (
-            <option key={category} value={category}>{category}</option>
-          ))}
-        </select>
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
-          <input
-            type="time"
-            name="time"
-            value={formData.time}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Description (Optional)</label>
-        <input
-          type="text"
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="What did you spend on?"
-        />
-      </div>
-      <div className="flex gap-3">
-        <button
-          type="button"
-          onClick={handleSubmit}
-          className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium"
-        >
-          Add Expense
-        </button>
-        <button
-          type="button"
-          onClick={handleCancel}
-          className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
-  </div>
-);
   
 const ExpensesTracker = () => {
-  // State to store all expenses - array of expense objects
-  const [expenses, setExpenses] = useState([]);
-  
-  // State to manage which view to display: 'main', 'add', or 'history'
-  const [currentView, setCurrentView] = useState('main');
-  
-  // State to manage the form data when adding a new expense
+  const [expenses, setExpenses] = useState([]);  // State to store all expenses 
+  const [currentView, setCurrentView] = useState('main');   // State to manage view 
   const [formData, setFormData] = useState({
     amount: '',
     category: 'Food',
@@ -113,13 +22,13 @@ const ExpensesTracker = () => {
     }));
   }, []);
 
-  const handleDeleteExpense = useCallback((expenseId) => {
+  const handleDeleteExpense = (expenseId) => {
     if (window.confirm('Are you sure you want to delete this expense?')) {
       setExpenses(prev => prev.filter(expense => expense.id !== expenseId));
     }
-  }, []);
+  };
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = () => {
     if (formData.category && formData.amount && formData.date && formData.time) {
       const newExpense = {
         id: Date.now(), 
@@ -141,9 +50,9 @@ const ExpensesTracker = () => {
       });
       setCurrentView('main');
     }
-  }, [formData]);
+  };
 
-  const getTotalByCategory = useCallback(() => {
+  const getTotalByCategory = () => {
     return categories.reduce((acc, category) => {
       const total = expenses
         .filter(expense => expense.category === category)
@@ -151,20 +60,20 @@ const ExpensesTracker = () => {
       acc[category] = total;
       return acc;
     }, {});
-  }, [expenses]);
+  };
 
-  const getTotalAmount = useCallback(() => {
+  const getTotalAmount = () => {
     return expenses.reduce((sum, expense) => sum + expense.amount, 0);
-  }, [expenses]);
+  };
 
-  const formatCurrency = useCallback((amount) => {
+  const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR'
     }).format(amount);
-  }, []);
+  };
 
-  const formatDate = useCallback((dateStr, timeStr) => {
+  const formatDate = (dateStr, timeStr) => {
     const date = new Date(`${dateStr}T${timeStr}`);
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
@@ -174,15 +83,17 @@ const ExpensesTracker = () => {
       minute: '2-digit',
       hour12: true
     });
-  }, []);
+  };
 
-  const handleCancel = useCallback(() => {
+  const handleCancel = () => {
     setCurrentView('main');
-  }, []);
+  };
 
-  const handleViewChange = useCallback((view) => {
+  const handleViewChange = (view) => {
     setCurrentView(view);
-  }, []);
+  };
+
+  // <addExpenseForm formData={formData}  handleInputChange={handleInputChange}  handleSubmit={handleSubmit} handleCancel={handleCancel} categories={categories}  />
 
   const MainDashboard = () => {
     const totalsByCategory = getTotalByCategory();
@@ -201,6 +112,8 @@ const ExpensesTracker = () => {
               <p className="text-2xl font-bold text-blue-600">{formatCurrency(totalsByCategory[category])}</p>
               <p className="text-sm text-gray-500 mt-1">
                 {expenses.filter(e => e.category === category).length} expenses
+                {console.log(category)}
+                
               </p>
             </div>
           ))}
@@ -208,14 +121,14 @@ const ExpensesTracker = () => {
         <div className="flex gap-4">
           <button
             onClick={() => handleViewChange('add')}
-            className="flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="flex items-center gap-2 dark:bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
           >
             <Plus size={20} />
             Add Expense
           </button>
           <button
             onClick={() => handleViewChange('history')}
-            className="flex items-center gap-2 bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium"
+            className="flex items-center bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium"
           >
             <History size={20} />
             View History
@@ -231,8 +144,7 @@ const ExpensesTracker = () => {
     return (
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bol
-d text-gray-800">Expense History</h2>
+          <h2 className="text-2xl font-bold text-gray-800">Expense History</h2>
           <button
             onClick={() => handleViewChange('main')}
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
