@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import Select from '../../category.jsx';
 import { useExpense , ExpenseProvider } from '../../Context/expense-Context.jsx';
 
 export const Home=() => {
-    const {data, list , sum , category, expenseDispatch} = useExpense(); 
+    const {data, list , sum , category, income, expenseDispatch} = useExpense(); 
+    const[saving , setSaving] = useState(0)
+     console.log(income);
+     
     const handlechange =(e) =>{
         expenseDispatch({
             type: "INPUT",
@@ -20,7 +24,19 @@ export const Home=() => {
             payload: {id, value}
         })
 }     
+    const handleIncome = (e) =>{
+        expenseDispatch({
+            type: "INCOME",
+            payload: e.target.value
+        })
+
+    }
         
+const showSaving = () =>{
+    expenseDispatch({
+        type: "SAVING"
+    })
+}   
         return (
             <>
                 <ExpenseProvider>
@@ -29,7 +45,11 @@ export const Home=() => {
                             <h1>Expense Tracker</h1>
                             <Select category= {category} expenseDispatch={expenseDispatch}/>
                             <input value={data} onChange ={handlechange}  type="number"  placeholder='enter amount'/> {/* /*with data it become a controled input */ }
-                        <button onClick={addExpense}>Add</button> 
+                            <button onClick={addExpense}>Add</button> 
+                        </div>
+                        <div>
+                            <input type='number'  placeholder='enter your income ' onChange={handleIncome}/>
+                            <button onClick={showSaving}>   update</button>
                         </div>
                         <div>
                             {list?.length > 0 && list.map((iteam) =>(

@@ -11,8 +11,13 @@ Currently, two official plugins are available:
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
-1-- Category should be already shown in my ul 
-2-- Add to the desired category 
+1-- Category should be already shown in my ul === done 
+2-- Add to the desired category  === done
 3-- peer category page 
 4-- analise the category pages 
 5-- login page auth 
+
+
+
+icome input ----display kar dena hai 
+save bhi karni hai income ---- > income - totall expense (sum )  
