@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import { Plus, History, TrendingUp, Trash2 } from 'lucide-react';
-// import { AddExpenseForm } from './components/Addexpense';
 
 
 const AddExpenseForm = ({ formData, handleInputChange, handleSubmit, handleCancel, categories }) => (
@@ -89,7 +88,6 @@ const AddExpenseForm = ({ formData, handleInputChange, handleSubmit, handleCance
   </div>
 );
   
-//  <AddExpenseForm />
 const ExpensesTracker = () => {
   // State to store all expenses - array of expense objects
   const [expenses, setExpenses] = useState([]);
