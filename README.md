@@ -4,6 +4,7 @@ A modern and user-friendly **Expense Tracking Web Application** built with React
 
 The application allows users to add expenses, categorize spending, and review expense history through a clean dashboard interface.
 
+![Dashboard](readmeImages/image-1.png)
 ---
 
 ## 🚀 Features
@@ -26,7 +27,7 @@ The application allows users to add expenses, categorize spending, and review ex
 
 - Responsive and modern UI
 - Currency formatted for INR locale
-
+![Add Expense](./readmeImages/image-2.png)
 ---
 
 ## 🛠 Tech Stack
@@ -52,16 +53,10 @@ src/
 └── main.jsx
 ```
 
----
 
-## 📸 Screenshots
 
-```markdown
-![Dashboard](readmeImages/image-1.png)
-![Add Expense](./readmeImages/image-2.png)
 ![Expense History](./readmeImages/image-3.png)
 
-```
 
 ## ⚙️ Installation & Setup
 
