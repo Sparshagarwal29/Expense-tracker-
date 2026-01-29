@@ -93,8 +93,6 @@ const ExpensesTracker = () => {
     setCurrentView(view);
   };
 
-  // <addExpenseForm formData={formData}  handleInputChange={handleInputChange}  handleSubmit={handleSubmit} handleCancel={handleCancel} categories={categories}  />
-
   const MainDashboard = () => {
     const totalsByCategory = getTotalByCategory();
     const totalAmount = getTotalAmount();
