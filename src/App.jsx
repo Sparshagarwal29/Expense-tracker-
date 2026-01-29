@@ -106,9 +106,9 @@ const ExpensesTracker = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {categories.map(category => (
             <div key={category} className="bg-white rounded-lg shadow-md p-4 border-l-4 border-blue-500">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">{category}</h3>
+              <h3 className="text-lg font-semibold text-white mb-2">{category}</h3>
               <p className="text-2xl font-bold text-blue-600">{formatCurrency(totalsByCategory[category])}</p>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-white mt-1">
                 {expenses.filter(e => e.category === category).length} expenses
                 {console.log(category)}
                 
